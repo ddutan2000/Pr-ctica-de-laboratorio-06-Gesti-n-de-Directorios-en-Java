@@ -6,6 +6,8 @@
 package ec.edu.ups.controlador;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,9 +20,7 @@ public class ControladorDirectorio {
     private File archivo;
     private File[] archivos;
 
-    public ControladorDirectorio(String ruta) {
-        this.ruta = ruta;
-
+    public ControladorDirectorio() {
     }
 
     public List<String> listarArchivos() {
@@ -87,23 +87,23 @@ public class ControladorDirectorio {
             archivo.mkdir();
         }
     }
+    public void eliminarDirectorio(File archivoEliminar) {
+       File[] archivosLista = archivoEliminar.listFiles();
 
-    public void eliminarDirectorio(String nombre) {
-        
-        for (File archivo1 : archivos) {
-            if(archivo1.getName().equals(nombre)){
-                File[] archivos=archivo1.listFiles();
-                for (int i = 0; i < archivos.length; i++) {
-                    archivos[i].delete();
+                for (int i = 0; i < archivosLista.length; i++) {
+                    if(archivosLista[i].isDirectory()){
+                        eliminarDirectorio(archivosLista[i]);
+                    }else{
+                        archivosLista[i].delete();
+                    }
                 }
-                archivo1.delete();
-                break;
-            }
-        }
+                archivoEliminar.delete();
     }
 
     public void renombrarDirectorio(String actual, String nuevo) {
+        
         for (File archivo1 : archivos) {
+            
             if(archivo1.getName().equals(actual)){
                 archivo1.renameTo(new File(nuevo));
                 break;
@@ -111,7 +111,27 @@ public class ControladorDirectorio {
         }
     }
 
-    public String mostrarInformacion(String nombre) {
+    public String mostrarInformacion(File informacionDeArchivo) {
+        File[] nombreDeArchivos=informacionDeArchivo.listFiles();
         
+        
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+           System.out.println(fecha.format(informacionDeArchivo.lastModified()));
+                
+        return "";
+    }
+    
+    public String tamañoDeDirectorio(File informacionDeArchivo){
+        File[] nombreDeArchivos=informacionDeArchivo.listFiles();
+        Double tamaño=0.00;
+        for (int i = 0; i < nombreDeArchivos.length; i++) {
+            if(nombreDeArchivos[i].isFile()){
+                tamaño+=((nombreDeArchivos[i].length()/1024.0)/1024.0);
+                System.out.println(tamaño);
+            }else{
+               tamañoDeDirectorio(nombreDeArchivos[i]); 
+            }
+        }
+        return ""; 
     }
 }

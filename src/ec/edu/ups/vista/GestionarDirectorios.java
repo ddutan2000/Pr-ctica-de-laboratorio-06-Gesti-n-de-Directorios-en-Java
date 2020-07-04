@@ -35,6 +35,8 @@ public class GestionarDirectorios extends javax.swing.JInternalFrame {
         jList1 = new javax.swing.JList<>();
         jButton4 = new javax.swing.JButton();
 
+        jTextField1.setText("/Users/Practica");
+
         jButton1.setText("Listar Directorios");
 
         jButton2.setText("Listar Archivos Ocultos");
