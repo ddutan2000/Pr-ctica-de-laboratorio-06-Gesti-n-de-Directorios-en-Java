@@ -55,11 +55,11 @@ En esta interface se importaron los siguientes metodos:
 	import javax.swing.JOptionPane;
 	
 se crearon un atributo para esta clase. Se  instancio el controladorDirectorio. Esta mismas fue creada dentro del controlador.
-En esta interface se crearon 5 menu Items en las cuales cada un tiene un mando diferente. 
+En esta interface se crearon 4 menu Items en las cuales cada un tiene un mando diferente. 
 
 	itemTabCrearActionPerformed: en esta item tab aparecerá un option panel en la cual permitirá que el usuario ingrese una nueva ruta y crear un directorio o archivo. 
-	ItemTabRenombrarActionPerformed: en este item tab aparecerá un option panel en la cual el usuario primero debe ingresar el nombre del archivo que desea renombrar y después aparecerá un segundo opción panel que le permita ingresar el nuevo nombre del archivo. 
-	GestionarDirectorioVentanaActionPerformed: en este ítem tab se visualizará la ventana de GetionarDirectorio.
+	itemTabRenombrarActionPerformed: en este item tab aparecerá un option panel en la cual el usuario primero debe ingresar el nombre del archivo que desea renombrar y después aparecerá un segundo opción panel que le permita ingresar el nuevo nombre del archivo. 
+	
 	itemTabEliminarActionPerformed: en este ítem tab aparecerá un option panel en la cual permitirá al usuario ingresar el nombre del archivo que desea eliminar.
 	exitMenuItemActionPerformed: al presionar este ítem tab se terminar el programa.  
 Se creo un método para poder actualizar la vista de la tabla. Así cuando el usuario presione cualquier botón se actualizara los datos de la tabla. 
