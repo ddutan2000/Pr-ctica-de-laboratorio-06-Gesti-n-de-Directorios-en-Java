@@ -6,7 +6,9 @@
 package ec.edu.ups.controlador;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,58 +25,58 @@ public class ControladorDirectorio {
     public ControladorDirectorio() {
     }
 
-    public List<String> listarArchivos() {
-        List<String> lista = null;
+    public List<String> listarArchivos(File buscarArchivos) {
+        List<String> lista = new ArrayList<>();
+        archivo = buscarArchivos;
+        archivos = archivo.listFiles();
+
+        for (File directorio : archivos) {
+            if (!directorio.isDirectory()) {
+                lista.add(directorio.getName());
+            }
+        }
+
+        return lista;
+
+    }
+
+    public List<String> listarDirectorios(File buscarDirectorio) {
+        List<String> lista = new ArrayList<>();
+        archivo = buscarDirectorio;
+        archivos = archivo.listFiles();
+
         for (File directorio : archivos) {
             if (directorio.isDirectory()) {
-                File[] archivos = directorio.listFiles();
-                for (File archivo1 : archivos) {
-                    if (archivo1.isFile()) {
-                        String archivo = archivo1.getName();
-                        lista.add(archivo);
-                    }
+                lista.add(directorio.getName());
+            }
+        }
+        return lista;
+    }
+
+    public List<String> listarArchivosOcultos(File buscarArchivosOcultos) {
+        List<String> lista = new ArrayList<>();
+        archivo = buscarArchivosOcultos;
+        archivos = archivo.listFiles();
+
+        for (File directorio : archivos) {
+            if (!directorio.isDirectory()) {
+                if (directorio.isHidden()) {
+                    lista.add(directorio.getName());
                 }
             }
         }
         return lista;
     }
 
-    public List<String> listarDirectorios() {
-        List<String> lista = null;
-        for (File directorio : archivos) {
-            if (directorio.isDirectory()) {
-                String d = directorio.getName();
-                lista.add(d);
-            }
-        }
-        return lista;
-    }
+    public List<String> listarDirectoriosOcultos(File BuscarDirectorioOculto) {
+        List<String> lista = new ArrayList<>();
+        archivo = BuscarDirectorioOculto;
+        archivos = archivo.listFiles();
 
-    public List<String> listarArchivosOcultos() {
-        List<String> lista = null;
-        for (File directorio : archivos) {
-            if (directorio.isDirectory()) {
-                File[] archivos = directorio.listFiles();
-                for (File archivo1 : archivos) {
-                    if (archivo1.isFile()) {
-                        if (archivo1.isHidden()) {
-                            String nombre = archivo1.getName();
-                            lista.add(nombre);
-                        }
-                    }
-                }
-            }
-        }
-        return lista;
-    }
-
-    public List<String> listarDirectoriosOcultos() {
-        List<String> lista = null;
         for (File directorio : archivos) {
             if (directorio.isDirectory()) {
                 if (directorio.isHidden()) {
-                    String nombre=directorio.getName();
-                    lista.add(nombre);
+                    lista.add(directorio.getName());
                 }
             }
         }
@@ -82,56 +84,55 @@ public class ControladorDirectorio {
     }
 
     public void crearDirectorio(String nombre) {
-        archivo=new File(nombre);
-        if(!archivo.exists()){
+        archivo = new File(nombre);
+        if (!archivo.exists()) {
             archivo.mkdir();
         }
     }
-    public void eliminarDirectorio(File archivoEliminar) {
-       File[] archivosLista = archivoEliminar.listFiles();
 
-                for (int i = 0; i < archivosLista.length; i++) {
-                    if(archivosLista[i].isDirectory()){
-                        eliminarDirectorio(archivosLista[i]);
-                    }else{
-                        archivosLista[i].delete();
-                    }
-                }
-                archivoEliminar.delete();
+    public void eliminarDirectorio(String EliminarArchivo) {
+        archivo = new File(EliminarArchivo);
+        File[] archivosLista = archivo.listFiles();
+
+        for (int i = 0; i < archivosLista.length; i++) {
+            if (archivosLista[i].isDirectory()) {
+                eliminarDirectorio(archivosLista[i].toString());
+            } else {
+                archivosLista[i].delete();
+            }
+        }
+        archivo.delete();
     }
 
     public void renombrarDirectorio(String actual, String nuevo) {
-        
-        for (File archivo1 : archivos) {
-            
-            if(archivo1.getName().equals(actual)){
-                archivo1.renameTo(new File(nuevo));
-                break;
-            }
+        archivo = new File(actual);
+        if (archivo.exists()) {
+            archivo.renameTo(new File(nuevo));
         }
     }
 
-    public String mostrarInformacion(File informacionDeArchivo) {
-        File[] nombreDeArchivos=informacionDeArchivo.listFiles();
+    public String mostrarInformacion(File informacionDeArchivos) {
         
+        //File[] nombreDeArchivos = informacionDeArchivos.listFiles();
         
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-           System.out.println(fecha.format(informacionDeArchivo.lastModified()));
-                
-        return "";
+        String datos=fecha.format(informacionDeArchivos.lastModified());
+
+        return datos;
     }
-    
-    public String tamañoDeDirectorio(File informacionDeArchivo){
-        File[] nombreDeArchivos=informacionDeArchivo.listFiles();
-        Double tamaño=0.00;
+
+    public Double tamañoDeDirectorio(File informacionDeArchivo) {
+        File[] nombreDeArchivos = informacionDeArchivo.listFiles();
+        Double tamaño = 0.00;
         for (int i = 0; i < nombreDeArchivos.length; i++) {
-            if(nombreDeArchivos[i].isFile()){
-                tamaño+=((nombreDeArchivos[i].length()/1024.0)/1024.0);
-                System.out.println(tamaño);
-            }else{
-               tamañoDeDirectorio(nombreDeArchivos[i]); 
+            if (nombreDeArchivos[i].isFile()) {
+                tamaño += ((nombreDeArchivos[i].length() / 1024.0) / 1024.0);
+                //DecimalFormat formato = new DecimalFormat("#0.00");
+                //System.out.println("Tamaño de archivo " + formato.format(tamaño));
+            } else {
+                tamaño += tamañoDeDirectorio(nombreDeArchivos[i]);
             }
         }
-        return ""; 
+        return tamaño;
     }
 }
