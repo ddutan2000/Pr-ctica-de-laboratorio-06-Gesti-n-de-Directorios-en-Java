@@ -1,12 +1,12 @@
 # Pr-ctica-de-laboratorio-06-Gesti-n-de-Directorios-en-Java
 Desarrollo de una aplicación informática para la gestión de directorios en Java utilizando manejo de excepciones
 
-**1.	se pedio desarrollar una interfaz que manipule directorios y archivos.** 
+**1.	se pedio desarrollar una interfaz que manipule directorios y archivos. **
 Para esta practica se crearon 2 paquetes:
 
-  	ec.edu.ups.controlador
-  	ec.edu.ups.vista
-  
+	ec.edu.ups.controlador
+	ec.edu.ups.vista
+	
 **2.	ec.edu.ups.controlador**
 
 En este paquete se creo los métodos la cual van a interactuar con la interfaz para poder manipular los directorios y archivos.
@@ -23,7 +23,6 @@ En esta clase se importaron los paquetes:
 	import java.util.ArrayList;
 	import java.util.Date;
 	import java.util.List;
-  
 se crearon 9 métodos para poder manipular los datos de los directorio y los archivos.
 
 	listarArchivos: este método recibe en sus parámetros un dato de tipo File. Después se consigue todos los File de ese dato y se utiliza un for Each en la cual se pregunta si el dato es un archivo. Si es un archivo consigue el nombre del dato y lo añade a una lista de strings. y esta lista se la retorna a la interfaz. 
@@ -39,44 +38,36 @@ se crearon 9 métodos para poder manipular los datos de los directorio y los arc
 
 en este paquete se crearon las interfaces para que el usuario pueda interactuar y manipular los datos de los directorios y archivos.
 
-	MenuPrincipal (JFrame Form)
-	GestionarDirectorios (JInternalFrame Form)
-  
-**5.	MenuPrincipal (JFrame Form)**
+	GestionarDirectorios (Aplication simple Form)
+	
+**5.	GestionarDirectorios (Aplication simple Form)**
 
 En esta interface se importaron los siguientes metodos: 
 
+	import ec.edu.ups.controlador.ControladorDirectorio;
 	import java.io.File;
 	import java.io.IOException;
+	import java.text.DecimalFormat;
+	import java.util.List;
 	import java.util.logging.Level;
 	import java.util.logging.Logger;
 	import javax.swing.JOptionPane;
-  
-se crearon dos atributos para esta clase. Se instancio el Frame GestionarDirectorios y se instancio el controladorDirectorio. Estas mismas fueron creadas dentro del controlador y añadidas dentro del marco.
+	
+se crearon un atributo para esta clase. Se  instancio el controladorDirectorio. Esta mismas fue creada dentro del controlador.
 En esta interface se crearon 5 menu Items en las cuales cada un tiene un mando diferente. 
 
-	itemTabCrearActionPerformed: en esta item tab aparecerá un option panel en la cual permitirá que el usuario u=ingrese una nueva ruta y crear un directorio o archivo. 
+	itemTabCrearActionPerformed: en esta item tab aparecerá un option panel en la cual permitirá que el usuario ingrese una nueva ruta y crear un directorio o archivo. 
 	ItemTabRenombrarActionPerformed: en este item tab aparecerá un option panel en la cual el usuario primero debe ingresar el nombre del archivo que desea renombrar y después aparecerá un segundo opción panel que le permita ingresar el nuevo nombre del archivo. 
-	GestionarDirectorioVentanaActionPerformed: en este ítem tab se visualizara la ventana de GetionarDirectorio.
+	GestionarDirectorioVentanaActionPerformed: en este ítem tab se visualizará la ventana de GetionarDirectorio.
 	itemTabEliminarActionPerformed: en este ítem tab aparecerá un option panel en la cual permitirá al usuario ingresar el nombre del archivo que desea eliminar.
 	exitMenuItemActionPerformed: al presionar este ítem tab se terminar el programa.  
-  
-**6.	GestionarDirectorios (JInternalFrame Form)**
-En esta interface se importaron los siguientes metodos:
-
-	import java.util.List;
-	import ec.edu.ups.controlador.ControladorDirectorio;
-	import java.io.File;
-	import java.text.DecimalFormat;
-  
-En esta interfaz se creo solamente un atributo. Se instancio el controladorDirectorio para poder llamar al método a que manipule los datos de los directorios y archivos. 
-Es su constructor recibe el controlador y lo instancia a la misma vez. 
 Se creo un método para poder actualizar la vista de la tabla. Así cuando el usuario presione cualquier botón se actualizara los datos de la tabla. 
 En la interfaz se crearon 5 botones en las cuales cada uno tiene un comando diferente:
 
-	botonListarDActionPerformed: al momento que el usuario presione el botón este actionPerformed reciebe los datos del textbox crea un nuevo dato tipo File y lo paso al controlador a que me retorne la lista de directorios.
-	botonListarAActionPerformed: al momento que el usuario presione el botón este actionPerformed reciebe los datos del textbox crea un nuevo dato tipo File y lo paso al controlador a que me retorne la lista de archivos.
+	botonListarDActionPerformed: al momento que el usuario presione el botón este actionPerformed reciebe los datos del textbox crea un nuevo dato tipo File y lo pasa al controlador a que me retorne la lista de directorios.
+	botonListarAActionPerformed: al momento que el usuario presione el botón este actionPerformed reciebe los datos del textbox crea un nuevo dato tipo File y lo pasa al controlador a que me retorne la lista de archivos.
 	botonListarArchivosOcultosActionPerformed: al momento que el usuario presione el botón este actionPerformed reciebe los datos del textbox crea un nuevo dato tipo File y lo paso al controlador a que me retorne la lista de archivos ocultos.
 	botonListarDirectoriosActionPerformed: al momento que el usuario presione el botón este actionPerformed reciebe los datos del textbox crea un nuevo dato tipo File y lo paso al controlador a que me retorne la lista de directorios ocultos.
-	botonMostrarInformacionActionPerformed: este botón concatena la ruta del textbox con e nombre del archivo de la lista. Luego se crea un nuevo dato de tipo File con esta ruta y se manda al controlador a que encuentre los datos del archivo. Una vez obtenidos los datos del archivo setiamos los datos del JText Area y este debe mostrarnos todo los datos de los documentos.  
- 
+	botonMostrarInformacionActionPerformed: este botón concatena la ruta del textbox con e nombre del archivo de la lista. Luego se crea un nuevo dato de tipo File con esta ruta y se manda al controlador a que encuentre los datos del archivo. Una vez obtenidos los datos del archivo setiamos los datos del JText Area y este debe mostrarnos todos los datos de los documentos.  
+
+
