@@ -113,8 +113,6 @@ public class ControladorDirectorio {
 
     public String mostrarInformacion(File informacionDeArchivos) {
         
-        //File[] nombreDeArchivos = informacionDeArchivos.listFiles();
-        
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String datos=fecha.format(informacionDeArchivos.lastModified());
 
@@ -127,8 +125,6 @@ public class ControladorDirectorio {
         for (int i = 0; i < nombreDeArchivos.length; i++) {
             if (nombreDeArchivos[i].isFile()) {
                 tamaño += ((nombreDeArchivos[i].length() / 1024.0) / 1024.0);
-                //DecimalFormat formato = new DecimalFormat("#0.00");
-                //System.out.println("Tamaño de archivo " + formato.format(tamaño));
             } else {
                 tamaño += tamañoDeDirectorio(nombreDeArchivos[i]);
             }
