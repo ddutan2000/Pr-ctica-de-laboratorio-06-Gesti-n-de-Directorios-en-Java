@@ -53,6 +53,7 @@ public class GestionarDirectorios extends javax.swing.JInternalFrame {
         txtArea = new javax.swing.JTextArea();
 
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
         txtRuta.setText("/Users/Practica");
 
@@ -182,7 +183,7 @@ public class GestionarDirectorios extends javax.swing.JInternalFrame {
         String lectura="";
         String escritura="";
         if(ruta.canRead()){
-            lectura="Verdaero";
+            lectura="Verdadero";
         }else{
            lectura="Falso";
         }

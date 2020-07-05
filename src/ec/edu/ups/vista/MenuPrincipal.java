@@ -6,6 +6,10 @@
 package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorDirectorio;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,7 +48,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        GestionarTelefonoVentana = new javax.swing.JMenuItem();
+        GestionarDirectorioVentana = new javax.swing.JMenuItem();
         itemTabCrear = new javax.swing.JMenuItem();
         itemTabEliminar = new javax.swing.JMenuItem();
         ItemTabRenombrar = new javax.swing.JMenuItem();
@@ -59,14 +63,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
 
-        GestionarTelefonoVentana.setMnemonic('o');
-        GestionarTelefonoVentana.setText("GESTIONAR DIRECTORIO");
-        GestionarTelefonoVentana.addActionListener(new java.awt.event.ActionListener() {
+        GestionarDirectorioVentana.setMnemonic('o');
+        GestionarDirectorioVentana.setText("GESTIONAR DIRECTORIO");
+        GestionarDirectorioVentana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GestionarTelefonoVentanaActionPerformed(evt);
+                GestionarDirectorioVentanaActionPerformed(evt);
             }
         });
-        fileMenu.add(GestionarTelefonoVentana);
+        fileMenu.add(GestionarDirectorioVentana);
 
         itemTabCrear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         itemTabCrear.setMnemonic('s');
@@ -120,13 +124,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void itemTabCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTabCrearActionPerformed
+
         String dato = JOptionPane.showInputDialog("Ingrese la ruta que desea crear");
+
+        
         if (dato.equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Vacio");
         } else {
-            controladorDirectorio.crearDirectorio(dato);
+            if (dato.contains(".")) {
+                try {
+                    File archivo1 = new File(dato);
+                    archivo1.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else {
+                    controladorDirectorio.crearDirectorio(dato);
+                }
+                
 
         }
+
 
     }//GEN-LAST:event_itemTabCrearActionPerformed
 
@@ -136,21 +154,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo Vacio");
         } else {
             String dato1 = JOptionPane.showInputDialog("Ingrese la nueva ruta");
-            if(dato1.equals("")){
+            if (dato1.equals("")) {
                 JOptionPane.showMessageDialog(null, "Campo Vacio");
-            }else{
-               controladorDirectorio.renombrarDirectorio(dato, dato1);
+            } else {
+                controladorDirectorio.renombrarDirectorio(dato, dato1);
             }
 
         }
 
     }//GEN-LAST:event_ItemTabRenombrarActionPerformed
 
-    private void GestionarTelefonoVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionarTelefonoVentanaActionPerformed
+    private void GestionarDirectorioVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionarDirectorioVentanaActionPerformed
         gestionarDirectorios.setVisible(true);
-    }//GEN-LAST:event_GestionarTelefonoVentanaActionPerformed
+    }//GEN-LAST:event_GestionarDirectorioVentanaActionPerformed
 
     private void itemTabEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTabEliminarActionPerformed
+
         String dato = JOptionPane.showInputDialog("Ingrese la ruta que desea Eliminar");
         if (dato.equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Vacio");
@@ -197,7 +216,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem GestionarTelefonoVentana;
+    private javax.swing.JMenuItem GestionarDirectorioVentana;
     private javax.swing.JMenuItem ItemTabRenombrar;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem exitMenuItem;

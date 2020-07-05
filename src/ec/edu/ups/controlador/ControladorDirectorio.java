@@ -88,7 +88,7 @@ public class ControladorDirectorio {
         if (!archivo.exists()) {
             archivo.mkdir();
         }
-    }
+    } 
 
     public void eliminarDirectorio(String EliminarArchivo) {
         archivo = new File(EliminarArchivo);
@@ -112,9 +112,9 @@ public class ControladorDirectorio {
     }
 
     public String mostrarInformacion(File informacionDeArchivos) {
-        
+
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String datos=fecha.format(informacionDeArchivos.lastModified());
+        String datos = fecha.format(informacionDeArchivos.lastModified());
 
         return datos;
     }
@@ -122,13 +122,18 @@ public class ControladorDirectorio {
     public Double tamañoDeDirectorio(File informacionDeArchivo) {
         File[] nombreDeArchivos = informacionDeArchivo.listFiles();
         Double tamaño = 0.00;
-        for (int i = 0; i < nombreDeArchivos.length; i++) {
-            if (nombreDeArchivos[i].isFile()) {
-                tamaño += ((nombreDeArchivos[i].length() / 1024.0) / 1024.0);
-            } else {
-                tamaño += tamañoDeDirectorio(nombreDeArchivos[i]);
+        if (informacionDeArchivo.isDirectory()) {
+            for (int i = 0; i < nombreDeArchivos.length; i++) {
+                if (nombreDeArchivos[i].isFile()) {
+                    tamaño += ((nombreDeArchivos[i].length() / 1024.0) / 1024.0);
+                } else {
+                    tamaño += tamañoDeDirectorio(nombreDeArchivos[i]);
+                }
             }
+        }else{
+            tamaño=((informacionDeArchivo.length()/ 1024.0) / 1024.0);
         }
+
         return tamaño;
     }
 }
