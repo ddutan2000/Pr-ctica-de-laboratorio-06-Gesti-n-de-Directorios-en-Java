@@ -83,8 +83,8 @@ public class ControladorDirectorio {
         return lista;
     }
 
-    public void crearDirectorio(String nombre) {
-        archivo = new File(nombre);
+    public void crearDirectorio(String ruta) {
+        archivo = new File(ruta);
         if (!archivo.exists()) {
             archivo.mkdir();
         }

@@ -244,7 +244,7 @@ public class GestionarDirectorio extends javax.swing.JFrame {
         DecimalFormat formato = new DecimalFormat("#0.000");
         String tamaño = formato.format(controladorDirectorio.tamañoDeDirectorio(ruta));
 
-        txtArea.setText(archivo + "\nTamaño de Archivo: " + tamaño + "\nAcceso de Lectura: " + escritura + "\nAcceso de escritura: " + escritura + "\nUltima fecha modificada: " + informacion);
+        txtArea.setText(archivo + "\nTamaño de Archivo: " + tamaño + "\nAcceso de Lectura: " + lectura + "\nAcceso de escritura: " + escritura + "\nUltima fecha modificada: " + informacion);
     }//GEN-LAST:event_botonMostrarInformacionActionPerformed
 
     private void botonListarAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarAActionPerformed
