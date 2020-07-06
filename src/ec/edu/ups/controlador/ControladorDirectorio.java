@@ -32,7 +32,9 @@ public class ControladorDirectorio {
 
         for (File directorio : archivos) {
             if (!directorio.isDirectory()) {
-                lista.add(directorio.getName());
+                if(!directorio.isHidden()){
+                  lista.add(directorio.getName());  
+                }   
             }
         }
 
@@ -47,7 +49,9 @@ public class ControladorDirectorio {
 
         for (File directorio : archivos) {
             if (directorio.isDirectory()) {
-                lista.add(directorio.getName());
+                if(!directorio.isHidden()){
+                 lista.add(directorio.getName());   
+                } 
             }
         }
         return lista;
@@ -93,13 +97,14 @@ public class ControladorDirectorio {
     public void eliminarDirectorio(String EliminarArchivo) {
         archivo = new File(EliminarArchivo);
         File[] archivosLista = archivo.listFiles();
-
+        if(archivo.isDirectory()){
         for (int i = 0; i < archivosLista.length; i++) {
             if (archivosLista[i].isDirectory()) {
                 eliminarDirectorio(archivosLista[i].toString());
             } else {
                 archivosLista[i].delete();
             }
+        }
         }
         archivo.delete();
     }

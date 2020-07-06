@@ -274,21 +274,24 @@ public class GestionarDirectorio extends javax.swing.JFrame {
     private void itemTabCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTabCrearActionPerformed
 
         String dato = JOptionPane.showInputDialog("Ingrese nombre para el nuevo documento");
-        
+        if(dato!=null){
         if (dato.equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Vacio");
         } else {
             if (dato.contains(".")) {
                 try {
-                    File archivo1 = new File(txtRuta.getText()+"/"+dato);
+                    File archivo1 = new File(txtRuta.getText() + "/" + dato);
                     archivo1.createNewFile();
                 } catch (IOException ex) {
                     Logger.getLogger(GestionarDirectorio.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                listar(controladorDirectorio.listarArchivos(new File(txtRuta.getText())));
             } else {
-                controladorDirectorio.crearDirectorio(txtRuta.getText()+"/"+dato);
+                controladorDirectorio.crearDirectorio(txtRuta.getText() + "/" + dato);
+                listar(controladorDirectorio.listarDirectorios(new File(txtRuta.getText())));
             }
 
+        }
         }
 
     }//GEN-LAST:event_itemTabCrearActionPerformed
@@ -300,9 +303,16 @@ public class GestionarDirectorio extends javax.swing.JFrame {
             if (dato.equals("")) {
                 JOptionPane.showMessageDialog(null, "Campo Vacio");
             } else {
-                String nombreActual=txtRuta.getText()+"/"+listaDeDatos.getSelectedValue();
-                String nuevoNombre=txtRuta.getText()+"/"+dato;
+                String nombreActual = txtRuta.getText() + "/" + listaDeDatos.getSelectedValue();
+                String nuevoNombre = txtRuta.getText() + "/" + dato;
                 controladorDirectorio.renombrarDirectorio(nombreActual, nuevoNombre);
+
+                File ruta = new File(txtRuta.getText());
+                if (ruta.isDirectory()) {
+                    listar(controladorDirectorio.listarDirectorios(ruta));
+                } else {
+                    listar(controladorDirectorio.listarArchivos(ruta));
+                }
             }
         }
     }//GEN-LAST:event_ItemTabRenombrarActionPerformed
@@ -312,6 +322,12 @@ public class GestionarDirectorio extends javax.swing.JFrame {
         if (opcion == 0) {
             String ruta = txtRuta.getText() + "/" + listaDeDatos.getSelectedValue();
             controladorDirectorio.eliminarDirectorio(ruta);
+            File ruta1 = new File(txtRuta.getText());
+            if (ruta1.isDirectory()) {
+                listar(controladorDirectorio.listarDirectorios(new File(txtRuta.getText())));
+            } else {
+                listar(controladorDirectorio.listarArchivos(new File(txtRuta.getText())));
+            }
         }
 
 
